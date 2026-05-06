@@ -1,5 +1,5 @@
 /* =========================================
-   FUYMA AI Assistant – Concept Placeholder
+   Felixinator – Concept Placeholder
    ========================================= */
 
 (function () {
@@ -260,7 +260,7 @@
 
   // ── Inject HTML ────────────────────────────────────────────────
   const html = `
-    <button id="fuyma-chat-launcher" aria-label="Open FUYMA AI Assistant">
+    <button id="fuyma-chat-launcher" aria-label="Open Felixinator">
       <svg class="icon-chat" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
@@ -269,11 +269,11 @@
       </svg>
     </button>
 
-    <div id="fuyma-chat-window" role="dialog" aria-label="FUYMA AI Assistant">
+    <div id="fuyma-chat-window" role="dialog" aria-label="Felixinator">
       <div id="fuyma-chat-header">
         <div class="fuyma-avatar">🤖</div>
         <div class="fuyma-header-info">
-          <div class="fuyma-header-name">FUYMA Assistant</div>
+          <div class="fuyma-header-name">Felixinator</div>
           <div class="fuyma-header-status">
             <div class="fuyma-status-dot"></div>
             Online · AI-powered
@@ -369,7 +369,7 @@
     },
     {
       match: /hello|hi|hey|hola|bonjour|hallo|ciao/i,
-      reply: 'Hello! 👋 I\'m the FUYMA AI Assistant. I can answer questions about our die casting capabilities, certifications, engineering services, products and more. What would you like to know?'
+      reply: 'Hello! 👋 I\'m the Felixinator. I can answer questions about our die casting capabilities, certifications, engineering services, products and more. What would you like to know?'
     },
     {
       match: /thank|thanks|gracias|merci|danke/i,
@@ -452,7 +452,7 @@
     if (isOpen && !hasGreeted) {
       hasGreeted = true;
       setTimeout(() => {
-        addMessage("👋 Hi! I'm the <strong>FUYMA AI Assistant</strong> — here to answer your questions about our die casting capabilities, engineering services, certifications and more.", 'bot');
+        addMessage("👋 Hi! I'm the <strong>Felixinator</strong> — here to answer your questions about our die casting capabilities, engineering services, certifications and more.", 'bot');
         setTimeout(() => buildQuickReplies(quickReplies), 600);
       }, 300);
     }

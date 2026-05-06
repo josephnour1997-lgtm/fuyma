@@ -146,6 +146,47 @@ document.querySelectorAll('.lang-option').forEach(btn => {
   });
 });
 
+// ===== SIMULATION STICKY IMAGE =====
+const simSections = document.querySelectorAll('.sim-section');
+const simImg = document.getElementById('simImg');
+const simImgLabel = document.getElementById('simImgLabel');
+const simImgSub = document.getElementById('simImgSub');
+const simDots = document.querySelectorAll('.sim-progress-dot');
+
+if (simSections.length && simImg) {
+  const setSimImage = (section) => {
+    const newSrc = section.dataset.img;
+    const newLabel = section.dataset.label;
+    const newSub = section.dataset.sub;
+    const idx = section.dataset.idx;
+    if (simImg.getAttribute('src') === newSrc) return;
+    simImg.classList.add('fading');
+    setTimeout(() => {
+      simImg.src = newSrc;
+      simImg.alt = newLabel;
+      simImgLabel.textContent = newLabel;
+      simImgSub.textContent = newSub;
+      simImg.classList.remove('fading');
+    }, 450);
+    simDots.forEach(d => d.classList.toggle('active', d.dataset.dot === idx));
+  };
+
+  const simObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) setSimImage(entry.target);
+    });
+  }, { rootMargin: '-35% 0px -35% 0px', threshold: 0 });
+
+  simSections.forEach(s => simObserver.observe(s));
+
+  simDots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.querySelector(`.sim-section[data-idx="${dot.dataset.dot}"]`);
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+}
+
 // ===== SMOOTH ANCHOR SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {

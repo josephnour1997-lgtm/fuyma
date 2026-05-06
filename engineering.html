@@ -93,23 +93,73 @@
       </div>
 
       <div class="tab-content" id="simulations">
-        <div class="two-col" style="margin-bottom:60px;">
-          <div>
-            <span class="section-label">Virtual Validation</span>
-            <h2 class="section-title">Predict Defects Before Production</h2>
-            <p style="color:var(--text-muted);font-size:0.95rem;line-height:1.75;margin-bottom:20px;">Our simulation suite allows us to analyse every aspect of the die casting process digitally &ndash; eliminating costly errors and reducing time to first good part.</p>
-            <div class="info-box"><div class="info-box-title">Simulation Benefits</div><p>Optimised cycle times &middot; Reduced porosity &middot; Eliminated hot zones &middot; Better thermal balance &middot; Lower scrap rates</p></div>
-          </div>
-          <div class="col-visual">&#128202;</div>
+        <div class="section-header" style="margin-bottom:0;">
+          <span class="section-label">Virtual Validation</span>
+          <h2 class="section-title">Predict Defects Before Production</h2>
+          <p class="section-desc">Our simulation suite analyses every aspect of the die casting process digitally &ndash; eliminating costly errors and reducing time to first good part. Scroll through each simulation type below.</p>
         </div>
-        <div class="section-header"><span class="section-label">Simulation Types</span><h2 class="section-title">Our Full Simulation Capability</h2></div>
-        <div class="sim-grid fade-in">
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Fill Simulation</strong> &ndash; models how liquid aluminium flows through the die cavity, identifying premature solidification and air entrapment</div></div>
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Cooling / Solidification Simulation</strong> &ndash; predicts how the part cools, identifying shrinkage zones and optimising cooling channels</div></div>
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Material Trace Simulation</strong> &ndash; tracks the path of molten metal through the runner system and die cavity</div></div>
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Hot Zone / Cold Zone Analysis</strong> &ndash; maps thermal distribution to prevent localised overheating or premature cooling</div></div>
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Thickness Analysis</strong> &ndash; verifies wall thickness consistency and identifies areas at risk of misrun or cold shuts</div></div>
-          <div class="sim-item"><div class="sim-dot"></div><div class="sim-text"><strong style="color:var(--text)">Porosity Risk Analysis</strong> &ndash; identifies regions susceptible to gas or shrinkage porosity before the mould is manufactured</div></div>
+        <div class="sim-scroll-layout">
+          <!-- LEFT: scrollable sections -->
+          <div class="sim-content">
+            <div class="sim-section" data-img="images/fILLING SIMULATION.jpg" data-label="Fill Simulation" data-sub="Liquid aluminium flow analysis" data-idx="0">
+              <span class="sim-section-num">01 &mdash; Filling</span>
+              <h3 class="sim-section-title">Fill Simulation</h3>
+              <p class="sim-section-desc">Models exactly how liquid aluminium travels through the runner system and fills the die cavity under high pressure. We identify potential problems before a single gram of metal is poured in production.</p>
+              <div class="sim-points">
+                <div class="sim-point">Tracks the metal front as it advances through the cavity, revealing flow patterns and turbulence zones</div>
+                <div class="sim-point">Detects premature solidification that causes cold shuts or misruns before they occur in tooling</div>
+                <div class="sim-point">Identifies air entrapment pockets that would otherwise create porosity or surface defects</div>
+                <div class="sim-point">Optimises gate position, runner geometry and injection speed for uniform, controlled filling</div>
+                <div class="sim-point">Reduces trial-and-error on the press, cutting tooling modification costs and lead time</div>
+              </div>
+            </div>
+            <div class="sim-section" data-img="images/Layout simulation.jpg" data-label="Layout Simulation" data-sub="Cooling channel & runner system design" data-idx="1">
+              <span class="sim-section-num">02 &mdash; Layout</span>
+              <h3 class="sim-section-title">Layout &amp; Cooling Simulation</h3>
+              <p class="sim-section-desc">Simulates the full thermal layout of the mould &ndash; cooling channels, runner system and die geometry &ndash; to achieve optimal thermal balance and the shortest possible cycle time.</p>
+              <div class="sim-points">
+                <div class="sim-point">Maps heat distribution across the entire mould to balance temperatures between cavities and slides</div>
+                <div class="sim-point">Positions and sizes cooling channels to extract heat evenly, avoiding hot zones that distort parts</div>
+                <div class="sim-point">Predicts solidification sequence to ensure directional cooling toward the gate</div>
+                <div class="sim-point">Minimises cycle time by confirming that cooling is complete before ejection &ndash; without overchilling</div>
+                <div class="sim-point">Eliminates warpage and dimensional variation caused by uneven thermal contraction</div>
+              </div>
+            </div>
+            <div class="sim-section" data-img="images/simulacion_porosidad.jpg" data-label="Porosity Risk Analysis" data-sub="Gas & shrinkage defect prediction" data-idx="2">
+              <span class="sim-section-num">03 &mdash; Porosity</span>
+              <h3 class="sim-section-title">Porosity Risk Analysis</h3>
+              <p class="sim-section-desc">Identifies regions of the part susceptible to gas or shrinkage porosity before the mould is manufactured. Critical for components with sealing, pressure or structural requirements.</p>
+              <div class="sim-points">
+                <div class="sim-point">Predicts gas porosity from entrapped air and die release agent gases during injection</div>
+                <div class="sim-point">Maps shrinkage porosity risk in areas that solidify last and are isolated from the feed metal</div>
+                <div class="sim-point">Highlights critical zones in components requiring leak-tightness or X-ray acceptance</div>
+                <div class="sim-point">Informs overflow and vent placement to guide trapped gases safely out of the cavity</div>
+                <div class="sim-point">Combined with fill simulation, provides a full defect-risk picture that drives zero-defect tooling design</div>
+              </div>
+            </div>
+            <div class="sim-section" data-img="images/Hot Similation.jpg" data-label="Hot Zone Analysis" data-sub="Thermal hot spot & overheating detection" data-idx="3">
+              <span class="sim-section-num">04 &mdash; Hot Zones</span>
+              <h3 class="sim-section-title">Hot Zone Analysis</h3>
+              <p class="sim-section-desc">Maps the thermal hot spots within the mould that accumulate excessive heat during the casting cycle. Uncontrolled hot zones accelerate die wear, cause soldering and increase scrap rates.</p>
+              <div class="sim-points">
+                <div class="sim-point">Identifies localised overheating in cores, slides and thin steel sections prone to heat build-up</div>
+                <div class="sim-point">Guides placement of targeted cooling inserts or baffles to extract heat precisely where needed</div>
+                <div class="sim-point">Predicts die soldering risk &ndash; where aluminium sticks to the steel surface due to excess temperature</div>
+                <div class="sim-point">Extends die service life by eliminating thermal fatigue cracking caused by repeated hot-cold cycling</div>
+                <div class="sim-point">Directly improves surface quality and dimensional consistency of cast parts across long production runs</div>
+              </div>
+            </div>
+          </div>
+          <!-- RIGHT: sticky image -->
+          <div class="sim-sticky">
+            <div class="sim-img-wrap">
+              <img id="simImg" src="images/fILLING SIMULATION.jpg" alt="Fill Simulation">
+              <div class="sim-img-caption">
+                <div class="sim-img-caption-label" id="simImgLabel">Fill Simulation</div>
+                <div class="sim-img-caption-sub" id="simImgSub">Liquid aluminium flow analysis</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
 
