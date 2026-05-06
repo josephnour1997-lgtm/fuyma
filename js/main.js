@@ -120,6 +120,11 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
+// GT sets body.style.top inline via JS — override it continuously
+new MutationObserver(() => {
+  if (document.body.style.top) document.body.style.top = '';
+}).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+
 // ===== LANGUAGE SELECTOR =====
 // Uses Google Translate's cookie mechanism — most reliable cross-browser approach.
 // Setting the googtrans cookie then reloading causes GT to auto-translate on load.
