@@ -120,10 +120,32 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
-// GT sets body.style.top inline via JS — override it continuously
-new MutationObserver(() => {
-  if (document.body.style.top) document.body.style.top = '';
-}).observe(document.body, { attributes: true, attributeFilter: ['style'] });
+// Suppress all Google Translate UI chrome (banner, tooltip, body offset).
+// GT injects elements dynamically, so CSS alone isn't reliable enough.
+function suppressGoogleTranslateUI() {
+  document.body.style.top = '';
+  document.querySelectorAll(
+    'iframe.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-te-ftab-float'
+  ).forEach(el => { el.style.cssText = 'display:none!important'; });
+}
+
+// Watch for body style changes (GT pushes body down via inline top)
+new MutationObserver(suppressGoogleTranslateUI)
+  .observe(document.body, { attributes: true, attributeFilter: ['style'] });
+
+// Watch for GT iframes being inserted into the DOM
+new MutationObserver(mutations => {
+  mutations.forEach(m => m.addedNodes.forEach(node => {
+    if (node.nodeType === 1 && (
+      node.classList?.contains('goog-te-banner-frame') ||
+      node.classList?.contains('goog-te-balloon-frame') ||
+      node.id === 'goog-gt-tt'
+    )) {
+      node.style.cssText = 'display:none!important';
+      document.body.style.top = '';
+    }
+  }));
+}).observe(document.body, { childList: true });
 
 // ===== LANGUAGE SELECTOR =====
 // Uses Google Translate's cookie mechanism — most reliable cross-browser approach.
