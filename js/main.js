@@ -31,6 +31,15 @@ navItems.forEach(item => {
   }
 });
 
+// Close mobile menu when a dropdown link is clicked
+document.querySelectorAll('.nav-dropdown-inner a').forEach(a => {
+  a.addEventListener('click', () => {
+    navMenu?.classList.remove('open');
+    navToggle?.classList.remove('open');
+    navItems.forEach(i => i.classList.remove('open'));
+  });
+});
+
 // Close menu on outside click
 document.addEventListener('click', (e) => {
   if (!navbar.contains(e.target)) {
@@ -49,21 +58,30 @@ document.querySelectorAll('.nav-link[href]').forEach(link => {
 });
 
 // ===== TABS =====
-document.querySelectorAll('.tabs').forEach(tabGroup => {
-  const buttons = tabGroup.querySelectorAll('.tab-btn');
-  const contents = tabGroup.closest('section, .tab-wrapper')?.querySelectorAll('.tab-content')
-    || document.querySelectorAll('.tab-content');
+function activateTab(tabId) {
+  const targetContent = document.getElementById(tabId);
+  const targetBtn = document.querySelector(`.tab-btn[data-tab="${tabId}"]`);
+  if (!targetContent || !targetBtn) return false;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  targetBtn.classList.add('active');
+  targetContent.classList.add('active');
+  return true;
+}
 
-  buttons.forEach(btn => {
-    btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-      const target = btn.dataset.tab;
-      document.querySelectorAll('.tab-content').forEach(c => {
-        c.classList.toggle('active', c.id === target);
-      });
-    });
+document.querySelectorAll('.tabs').forEach(tabGroup => {
+  tabGroup.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => activateTab(btn.dataset.tab));
   });
+});
+
+// Activate tab from URL hash on load and on same-page hash navigation
+const hashTab = window.location.hash.slice(1);
+if (hashTab) activateTab(hashTab);
+
+window.addEventListener('hashchange', () => {
+  const tab = window.location.hash.slice(1);
+  if (tab) activateTab(tab);
 });
 
 // ===== SCROLL ANIMATIONS =====
@@ -102,7 +120,68 @@ function googleTranslateElementInit() {
   }, 'google_translate_element');
 }
 
+// Suppress all Google Translate UI chrome (banner, tooltip, body offset).
+// GT injects elements dynamically, so CSS alone isn't reliable enough.
+function suppressGoogleTranslateUI() {
+  document.body.style.top = '';
+  document.querySelectorAll(
+    'iframe.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-te-ftab-float'
+  ).forEach(el => { el.style.cssText = 'display:none!important'; });
+}
+
+// Watch for body style changes (GT pushes body down via inline top)
+new MutationObserver(suppressGoogleTranslateUI)
+  .observe(document.body, { attributes: true, attributeFilter: ['style'] });
+
+// Watch for GT iframes being inserted into the DOM
+new MutationObserver(mutations => {
+  mutations.forEach(m => m.addedNodes.forEach(node => {
+    if (node.nodeType === 1 && (
+      node.classList?.contains('goog-te-banner-frame') ||
+      node.classList?.contains('goog-te-balloon-frame') ||
+      node.id === 'goog-gt-tt'
+    )) {
+      node.style.cssText = 'display:none!important';
+      document.body.style.top = '';
+    }
+  }));
+}).observe(document.body, { childList: true });
+
 // ===== LANGUAGE SELECTOR =====
+// Uses Google Translate's cookie mechanism — most reliable cross-browser approach.
+// Setting the googtrans cookie then reloading causes GT to auto-translate on load.
+
+function getLangFromCookie() {
+  const m = document.cookie.match(/googtrans=\/en\/([a-z]+)/);
+  return m ? m[1] : 'en';
+}
+
+function setTranslateCookie(lang) {
+  const domain = window.location.hostname;
+  if (lang === 'en') {
+    const past = 'Thu, 01 Jan 1970 00:00:00 UTC';
+    document.cookie = `googtrans=; expires=${past}; path=/`;
+    document.cookie = `googtrans=; expires=${past}; path=/; domain=${domain}`;
+    document.cookie = `googtrans=; expires=${past}; path=/; domain=.${domain}`;
+  } else {
+    document.cookie = `googtrans=/en/${lang}; path=/`;
+    document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain}`;
+    document.cookie = `googtrans=/en/${lang}; path=/; domain=.${domain}`;
+  }
+}
+
+// Restore UI to match active cookie on page load
+(function syncLangUI() {
+  const activeLang = getLangFromCookie();
+  if (activeLang === 'en') return;
+  const opt = document.querySelector(`.lang-option[data-lang="${activeLang}"]`);
+  if (!opt) return;
+  document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
+  opt.classList.add('active');
+  document.getElementById('currentFlag').textContent = opt.dataset.flag;
+  document.getElementById('currentCode').textContent = opt.dataset.code;
+})();
+
 const langSelector = document.getElementById('langSelector');
 const langBtn = document.getElementById('langBtn');
 
@@ -120,29 +199,10 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll('.lang-option').forEach(btn => {
   btn.addEventListener('click', () => {
     const lang = btn.dataset.lang;
-    const code = btn.dataset.code;
-
-    document.getElementById('currentCode').textContent = code;
-    document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
     langSelector.classList.remove('open');
-
-    const triggerTranslate = () => {
-      const select = document.querySelector('.goog-te-combo');
-      if (select) {
-        select.value = lang === 'en' ? '' : lang;
-        select.dispatchEvent(new Event('change', { bubbles: true }));
-        return true;
-      }
-      return false;
-    };
-
-    if (!triggerTranslate()) {
-      const interval = setInterval(() => {
-        if (triggerTranslate()) clearInterval(interval);
-      }, 300);
-      setTimeout(() => clearInterval(interval), 6000);
-    }
+    if (lang === getLangFromCookie()) return; // already active, no reload needed
+    setTranslateCookie(lang);
+    window.location.reload();
   });
 });
 
