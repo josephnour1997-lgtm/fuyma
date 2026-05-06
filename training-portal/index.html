@@ -4,37 +4,37 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>FUYMA Training Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300;400;500;600;700;800;900&family=Barlow:wght@300;400;500;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
 /* ===== CSS VARIABLES ===== */
 :root {
-  --bg-primary: #080f1c;
-  --bg-secondary: #0d1a2d;
-  --bg-card: #111e30;
-  --bg-card-hover: #162537;
-  --border: #1a2e47;
-  --border-light: #243a56;
-  --accent: #e8821a;
-  --accent-dim: #c46a12;
-  --accent-glow: rgba(232, 130, 26, 0.15);
-  --text-primary: #eef2f7;
-  --text-secondary: #7a96b2;
-  --text-muted: #3d5470;
+  --bg-primary: #0e1324;
+  --bg-secondary: #1e2447;
+  --bg-card: #131a38;
+  --bg-card-hover: #1a2347;
+  --border: rgba(255, 255, 255, 0.07);
+  --border-light: rgba(255, 255, 255, 0.12);
+  --accent: #e8003d;
+  --accent-dim: #c4002f;
+  --accent-glow: rgba(232, 0, 61, 0.2);
+  --text-primary: #f0f4f8;
+  --text-secondary: rgba(240, 244, 248, 0.55);
+  --text-muted: rgba(240, 244, 248, 0.3);
   --success: #22c55e;
   --warning: #f59e0b;
   --danger: #ef4444;
   --info: #38bdf8;
-  --dept-casting: #e8821a;
+  --dept-casting: #e8003d;
   --dept-machining: #38bdf8;
   --dept-tooling: #a78bfa;
   --dept-engineering: #34d399;
   --dept-assembly: #fb7185;
   --dept-surface: #fbbf24;
   --dept-technical: #94a3b8;
-  --font-display: 'Barlow Condensed', sans-serif;
-  --font-body: 'Barlow', sans-serif;
-  --font-mono: 'DM Mono', monospace;
+  --font-display: 'Montserrat', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: monospace;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -71,7 +71,7 @@ body::after {
 .login-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(145deg, #060c17 0%, #0a1628 45%, #060c17 100%);
+  background: linear-gradient(145deg, #0b1020 0%, #131a38 45%, #0b1020 100%);
 }
 
 /* Technical grid */
@@ -80,8 +80,8 @@ body::after {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(26, 46, 71, 0.4) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(26, 46, 71, 0.4) 1px, transparent 1px);
+    linear-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
   background-size: 56px 56px;
 }
 
@@ -105,7 +105,7 @@ body::after {
   left: 44.5%;
   width: 1px;
   height: 160%;
-  background: linear-gradient(180deg, transparent 0%, rgba(232,130,26,0.4) 30%, rgba(232,130,26,0.4) 70%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, rgba(232,0,61,0.4) 30%, rgba(232,0,61,0.4) 70%, transparent 100%);
   transform: rotate(14deg);
   opacity: 0.15;
   pointer-events: none;
@@ -129,7 +129,7 @@ body::after {
   padding: 60px 52px;
   position: relative;
   z-index: 1;
-  background: rgba(11, 21, 37, 0.65);
+  background: rgba(14, 19, 36, 0.65);
   backdrop-filter: blur(20px);
   border-left: 1px solid var(--border);
 }
@@ -248,7 +248,7 @@ body::after {
 
 .form-field input {
   width: 100%;
-  background: rgba(17, 30, 48, 0.9);
+  background: rgba(14, 19, 36, 0.9);
   border: 1px solid var(--border);
   border-radius: 3px;
   padding: 14px 16px;
@@ -294,14 +294,14 @@ body::after {
   margin-top: 8px;
 }
 
-.btn-signin:hover { background: #d4721a; }
+.btn-signin:hover { background: #c4002f; }
 .btn-signin:active { transform: scale(0.99); }
 
 .demo-hint {
   margin-top: 28px;
   padding: 18px;
-  background: rgba(232, 130, 26, 0.04);
-  border: 1px solid rgba(232, 130, 26, 0.12);
+  background: rgba(232, 0, 61, 0.04);
+  border: 1px solid rgba(232, 0, 61, 0.12);
   border-radius: 3px;
 }
 
@@ -326,7 +326,7 @@ body::after {
 }
 
 .demo-user:last-child { margin-bottom: 0; }
-.demo-user:hover { background: rgba(232, 130, 26, 0.08); }
+.demo-user:hover { background: rgba(232, 0, 61, 0.08); }
 
 .demo-avatar {
   width: 28px;
@@ -1167,7 +1167,7 @@ body::after {
   transition: background 0.2s;
 }
 
-.btn-primary:hover { background: #d4721a; }
+.btn-primary:hover { background: #c4002f; }
 
 .btn-secondary {
   background: transparent;
@@ -1902,7 +1902,7 @@ textarea.form-control { resize: vertical; min-height: 90px; }
   <!-- LEFT PANEL -->
   <div class="login-left">
     <div class="fuyma-logo">
-      <img src="fuyma-logo.png" alt="FUYMA" style="height:64px;object-fit:contain;filter:drop-shadow(0 2px 12px rgba(0,0,0,0.5));">
+      <img src="../images/fuyma-logo.jpg" alt="FUYMA" style="height:64px;object-fit:contain;background:white;border-radius:8px;padding:6px 12px;">
       <div class="logo-tagline" style="margin-top:10px;">Aluminium HPDC &middot; Automotive Precision</div>
     </div>
 
@@ -2008,7 +2008,7 @@ textarea.form-control { resize: vertical; min-height: 90px; }
   <!-- NAVIGATION -->
   <nav class="nav">
     <div class="nav-brand">
-      <img src="fuyma-logo.png" alt="FUYMA" style="height:34px;object-fit:contain;">
+      <img src="../images/fuyma-logo.jpg" alt="FUYMA" style="height:34px;object-fit:contain;background:white;border-radius:6px;padding:3px 7px;">
     </div>
 
     <div class="nav-tabs">
@@ -2031,6 +2031,9 @@ textarea.form-control { resize: vertical; min-height: 90px; }
         <div class="user-avatar" id="nav-avatar">JS</div>
         <span class="user-name-nav" id="nav-name">John Smith</span>
       </div>
+      <a href="../index.html" class="btn-logout" style="text-decoration:none;">
+        <i class="fa fa-arrow-left"></i> Main Site
+      </a>
       <button class="btn-logout" onclick="handleLogout()">
         <i class="fa fa-right-from-bracket"></i> Logout
       </button>
@@ -2248,7 +2251,7 @@ textarea.form-control { resize: vertical; min-height: 90px; }
 
   <nav class="nav">
     <div class="nav-brand">
-      <img src="fuyma-logo.png" alt="FUYMA" style="height:34px;object-fit:contain;">
+      <img src="../images/fuyma-logo.jpg" alt="FUYMA" style="height:34px;object-fit:contain;background:white;border-radius:6px;padding:3px 7px;">
       <span class="hr-badge"><i class="fa fa-shield-halved"></i> HR Admin</span>
     </div>
     <div class="nav-tabs">
@@ -2270,6 +2273,7 @@ textarea.form-control { resize: vertical; min-height: 90px; }
         <div class="user-avatar" style="background:var(--dept-tooling)">HR</div>
         <span class="user-name-nav">HR Administrator</span>
       </div>
+      <a href="../index.html" class="btn-logout" style="text-decoration:none;"><i class="fa fa-arrow-left"></i> Main Site</a>
       <button class="btn-logout" onclick="handleLogout()"><i class="fa fa-right-from-bracket"></i> Logout</button>
     </div>
   </nav>

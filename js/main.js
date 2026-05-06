@@ -120,10 +120,8 @@ document.addEventListener('click', (e) => {
 document.querySelectorAll('.lang-option').forEach(btn => {
   btn.addEventListener('click', () => {
     const lang = btn.dataset.lang;
-    const flag = btn.dataset.flag;
     const code = btn.dataset.code;
 
-    document.getElementById('currentFlag').textContent = flag;
     document.getElementById('currentCode').textContent = code;
     document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
@@ -133,11 +131,18 @@ document.querySelectorAll('.lang-option').forEach(btn => {
       const select = document.querySelector('.goog-te-combo');
       if (select) {
         select.value = lang === 'en' ? '' : lang;
-        select.dispatchEvent(new Event('change'));
+        select.dispatchEvent(new Event('change', { bubbles: true }));
+        return true;
       }
+      return false;
     };
-    triggerTranslate();
-    setTimeout(triggerTranslate, 800);
+
+    if (!triggerTranslate()) {
+      const interval = setInterval(() => {
+        if (triggerTranslate()) clearInterval(interval);
+      }, 300);
+      setTimeout(() => clearInterval(interval), 6000);
+    }
   });
 });
 
