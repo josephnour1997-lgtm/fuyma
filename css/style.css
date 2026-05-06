@@ -66,7 +66,7 @@ ul { list-style: none; }
 .nav-brand { display: flex; flex-direction: column; text-decoration: none; flex-shrink: 0; }
 .nav-brand-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px; line-height: 1.1; }
 .nav-brand-sub { font-size: 0.58rem; font-weight: 600; color: var(--accent); letter-spacing: 2.5px; text-transform: uppercase; }
-.nav-logo { height: 40px; width: auto; display: block; }
+.nav-logo { height: 40px; width: auto; display: block; background: white; border-radius: 6px; padding: 4px 8px; }
 
 .nav-menu { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
 
@@ -487,7 +487,6 @@ ul { list-style: none; }
 .lang-btn:hover { background: rgba(255,255,255,0.1); border-color: rgba(255,255,255,0.22); color: var(--text); }
 .lang-btn svg { transition: transform 0.2s; }
 .lang-selector.open .lang-btn svg { transform: rotate(180deg); }
-.lang-flag { font-size: 1.05rem; line-height: 1; }
 .lang-dropdown {
   position: absolute; top: calc(100% + 6px); right: 0; min-width: 112px;
   background: var(--primary); border: 1px solid var(--border);
