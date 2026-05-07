@@ -1888,6 +1888,77 @@ textarea.form-control { resize: vertical; min-height: 90px; }
   margin-bottom: 4px;
   display: block;
 }
+
+/* ===== MOBILE (≤480px) — standard iPhone sizes ===== */
+@media (max-width: 480px) {
+  /* Nav */
+  .nav { padding: 0 12px; gap: 0; height: 54px; }
+  .nav-brand { margin-right: 12px; gap: 7px; }
+  .nav-brand-text { font-size: 16px; letter-spacing: 3px; }
+  .nav-brand img { height: 28px; }
+  .nav-tabs { gap: 0; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .nav-tab { padding: 0 12px; font-size: 10px; letter-spacing: 1px; }
+  .nav-right { gap: 8px; }
+  .user-chip { padding: 4px 10px 4px 4px; }
+  .user-name-nav { display: none; }
+  .btn-logout { padding: 6px 10px; font-size: 10px; }
+
+  /* Login */
+  .login-form-panel { padding: 28px 20px; }
+
+  /* Tab content */
+  .tab-pane { padding: 16px 14px; }
+  .hr-tab-pane { padding: 16px 14px; }
+
+  /* Welcome banner */
+  .welcome-banner { padding: 18px 16px; }
+  .wb-name { font-size: 22px; }
+  .wb-right { display: none; }
+
+  /* Stat grids */
+  .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .hr-stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-num { font-size: 36px; }
+  .stat-card { padding: 16px 14px; }
+
+  /* Dashboard main */
+  .dash-main-grid { grid-template-columns: 1fr; }
+
+  /* Section headers */
+  .sec-title { font-size: 16px; letter-spacing: 2px; }
+
+  /* Ring */
+  .ring-wrap { flex-direction: column; align-items: flex-start; }
+
+  /* Course / rec grids already 1-col at 860px */
+
+  /* Modals */
+  .modal-body { padding: 18px 16px; }
+  .alloc-modal { margin: 0 8px; }
+  .alloc-overlay { padding: 16px; }
+  .modal { padding: 16px; }
+
+  /* Progress grid */
+  .prog-grid { grid-template-columns: 1fr; }
+
+  /* Filter / search bar */
+  .filter-bar { flex-direction: column; align-items: stretch; gap: 10px; }
+  .search-wrap { min-width: 0; }
+
+  /* Tables: make them scroll */
+  .score-table-wrap, .lib-card { overflow-x: auto; }
+  .score-table { min-width: 500px; }
+
+  /* Promo */
+  .promo-path { flex-direction: column; align-items: flex-start; gap: 8px; }
+}
+
+@media (max-width: 360px) {
+  .nav-brand-text { font-size: 14px; }
+  .nav-tab { padding: 0 9px; font-size: 9px; }
+  .stats-grid { grid-template-columns: 1fr; }
+  .hr-stats-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
