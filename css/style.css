@@ -66,7 +66,7 @@ ul { list-style: none; }
 .nav-brand { display: flex; flex-direction: column; text-decoration: none; flex-shrink: 0; }
 .nav-brand-name { font-family: var(--font-heading); font-size: 1.25rem; font-weight: 800; color: var(--text); letter-spacing: 0.5px; line-height: 1.1; }
 .nav-brand-sub { font-size: 0.58rem; font-weight: 600; color: var(--accent); letter-spacing: 2.5px; text-transform: uppercase; }
-.nav-logo { height: 40px; width: auto; display: block; }
+.nav-logo { height: 40px; width: auto; display: block; background: white; border-radius: 6px; padding: 4px 8px; }
 
 .nav-menu { display: flex; align-items: center; gap: 2px; flex: 1; justify-content: center; }
 
