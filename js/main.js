@@ -110,99 +110,71 @@ contactForm?.addEventListener('submit', (e) => {
   }, 3000);
 });
 
-// ===== GOOGLE TRANSLATE INIT =====
-function googleTranslateElementInit() {
-  new google.translate.TranslateElement({
-    pageLanguage: 'en',
-    includedLanguages: 'en,es,fr,de,it',
-    layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
-    autoDisplay: false
-  }, 'google_translate_element');
-}
+// ===== I18N =====
+const i18n = {
+  lang: localStorage.getItem('fuyma-lang') || 'en',
 
-// Suppress all Google Translate UI chrome (banner, tooltip, body offset).
-// GT injects elements dynamically, so CSS alone isn't reliable enough.
-function suppressGoogleTranslateUI() {
-  document.body.style.top = '';
-  document.querySelectorAll(
-    'iframe.goog-te-banner-frame, .goog-te-balloon-frame, #goog-gt-tt, .goog-te-ftab-float'
-  ).forEach(el => { el.style.cssText = 'display:none!important'; });
-}
+  t(key) {
+    const obj = FUYMA_TRANSLATIONS[this.lang] || FUYMA_TRANSLATIONS.en;
+    return key.split('.').reduce((o, k) => (o != null ? o[k] : undefined), obj);
+  },
 
-// Watch for body style changes (GT pushes body down via inline top)
-new MutationObserver(suppressGoogleTranslateUI)
-  .observe(document.body, { attributes: true, attributeFilter: ['style'] });
+  apply() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const v = this.t(el.dataset.i18n);
+      if (v != null) el.textContent = v;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+      const v = this.t(el.dataset.i18nPlaceholder);
+      if (v != null) el.placeholder = v;
+    });
+    // keep html lang attribute in sync
+    document.documentElement.lang = this.lang;
+  },
 
-// Watch for GT iframes being inserted into the DOM
-new MutationObserver(mutations => {
-  mutations.forEach(m => m.addedNodes.forEach(node => {
-    if (node.nodeType === 1 && (
-      node.classList?.contains('goog-te-banner-frame') ||
-      node.classList?.contains('goog-te-balloon-frame') ||
-      node.id === 'goog-gt-tt'
-    )) {
-      node.style.cssText = 'display:none!important';
-      document.body.style.top = '';
-    }
-  }));
-}).observe(document.body, { childList: true });
-
-// ===== LANGUAGE SELECTOR =====
-// Uses Google Translate's cookie mechanism — most reliable cross-browser approach.
-// Setting the googtrans cookie then reloading causes GT to auto-translate on load.
-
-function getLangFromCookie() {
-  const m = document.cookie.match(/googtrans=\/en\/([a-z]+)/);
-  return m ? m[1] : 'en';
-}
-
-function setTranslateCookie(lang) {
-  const domain = window.location.hostname;
-  if (lang === 'en') {
-    const past = 'Thu, 01 Jan 1970 00:00:00 UTC';
-    document.cookie = `googtrans=; expires=${past}; path=/`;
-    document.cookie = `googtrans=; expires=${past}; path=/; domain=${domain}`;
-    document.cookie = `googtrans=; expires=${past}; path=/; domain=.${domain}`;
-  } else {
-    document.cookie = `googtrans=/en/${lang}; path=/`;
-    document.cookie = `googtrans=/en/${lang}; path=/; domain=${domain}`;
-    document.cookie = `googtrans=/en/${lang}; path=/; domain=.${domain}`;
+  setLang(code) {
+    this.lang = code;
+    localStorage.setItem('fuyma-lang', code);
+    this.apply();
   }
-}
+};
 
-// Restore UI to match active cookie on page load
+// Sync language selector UI to stored language
 (function syncLangUI() {
-  const activeLang = getLangFromCookie();
-  if (activeLang === 'en') return;
-  const opt = document.querySelector(`.lang-option[data-lang="${activeLang}"]`);
+  const stored = i18n.lang;
+  const opt = document.querySelector(`.lang-option[data-lang="${stored}"]`);
   if (!opt) return;
   document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
   opt.classList.add('active');
-  document.getElementById('currentFlag').textContent = opt.dataset.flag;
-  document.getElementById('currentCode').textContent = opt.dataset.code;
+  const flag = document.getElementById('currentFlag');
+  const code = document.getElementById('currentCode');
+  if (flag) flag.textContent = opt.dataset.flag;
+  if (code) code.textContent = opt.dataset.code;
 })();
 
 const langSelector = document.getElementById('langSelector');
 const langBtn = document.getElementById('langBtn');
 
-langBtn?.addEventListener('click', (e) => {
+langBtn?.addEventListener('click', e => {
   e.stopPropagation();
   langSelector.classList.toggle('open');
 });
 
-document.addEventListener('click', (e) => {
-  if (langSelector && !langSelector.contains(e.target)) {
+document.addEventListener('click', e => {
+  if (langSelector && !langSelector.contains(e.target))
     langSelector.classList.remove('open');
-  }
 });
 
 document.querySelectorAll('.lang-option').forEach(btn => {
   btn.addEventListener('click', () => {
-    const lang = btn.dataset.lang;
     langSelector.classList.remove('open');
-    if (lang === getLangFromCookie()) return; // already active, no reload needed
-    setTranslateCookie(lang);
-    window.location.reload();
+    const flag = document.getElementById('currentFlag');
+    const code = document.getElementById('currentCode');
+    if (flag) flag.textContent = btn.dataset.flag;
+    if (code) code.textContent = btn.dataset.code;
+    document.querySelectorAll('.lang-option').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    i18n.setLang(btn.dataset.lang);
   });
 });
 
@@ -246,6 +218,9 @@ if (simSections.length && simImg) {
     });
   });
 }
+
+// Apply translations on page load
+i18n.apply();
 
 // ===== SMOOTH ANCHOR SCROLL =====
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {

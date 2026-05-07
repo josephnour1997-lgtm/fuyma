@@ -536,19 +536,6 @@ ul { list-style: none; }
 }
 .lang-option:hover { background: var(--surface); color: var(--text); }
 .lang-option.active { color: var(--accent); }
-/* Suppress all Google Translate UI chrome */
-.goog-te-banner-frame,
-.goog-te-banner-frame.skiptranslate,
-.goog-te-balloon-frame,
-#goog-gt-tt,
-.goog-te-ftab-float,
-.goog-tooltip,
-.goog-tooltip-content,
-.VIpgJd-ZVi9od-aZ2wEe,
-.VIpgJd-ZVi9od-aZ2wEe-OgxTjd { display: none !important; }
-body,
-body.translated-ltr,
-body.translated-rtl { top: 0 !important; position: static !important; }
 
 /* ===== ANIMATIONS ===== */
 .fade-in { opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
